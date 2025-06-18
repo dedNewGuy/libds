@@ -33,7 +33,7 @@ void stack_destroy(stack_t *stack)
 	free(stack);
 }
 
-void stack_push(stack_t *stack, void *item)
+int stack_push(stack_t *stack, void *item)
 {
 	if (stack->pointer >= stack->capacity)
 	{
@@ -42,7 +42,7 @@ void stack_push(stack_t *stack, void *item)
 		if (values_new == NULL)
 		{
 			perror("libds: failed to realloc stack");
-			return;
+			return -1;
 		}
 		else
 		{
@@ -52,6 +52,7 @@ void stack_push(stack_t *stack, void *item)
 	}
 	stack->values[stack->pointer] = item;
 	stack->pointer += 1;
+	return 0;
 }
 
 void *stack_pop(stack_t *stack)
@@ -72,6 +73,3 @@ void *stack_peek(stack_t *stack)
 	}
 	return stack->values[stack->pointer - 1];
 }
-
-
-

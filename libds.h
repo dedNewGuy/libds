@@ -42,6 +42,7 @@ typedef struct __stack_t stack_t;
 
 stack_t *stack_new(void);
 void stack_push(stack_t *stack, void *item);
+void *stack_peek(stack_t *stack);
 void *stack_pop(stack_t *stack);
 void stack_destroy(stack_t *stack);
 

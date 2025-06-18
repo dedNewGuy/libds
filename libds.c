@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <assert.h>
+#include <stdio.h>
 
 
 stack_t *stack_new(void)
@@ -25,12 +26,42 @@ void stack_destroy(stack_t *stack)
 
 void stack_push(stack_t *stack, void *item)
 {
-	
+	if (stack->pointer >= (int)stack->capacity)
+	{
+		size_t capacity = stack->capacity + 10;
+		void **values_new = realloc(stack->values, capacity * sizeof(void *));
+		if (values_new == NULL)
+		{
+			free(stack->values);
+			perror("libds");
+			return;
+		}
+		else
+		{
+			stack->values = values_new;
+		}
+	}
+	stack->values[stack->pointer] = item;
+	stack->pointer += 1;
 }
 
 void *stack_pop(stack_t *stack)
 {
-	
+	if (stack->pointer <= 0)
+	{
+		return NULL;
+	}
+	stack->pointer -= 1;
+	return stack->values[stack->pointer];
+}
+
+void *stack_peek(stack_t *stack)
+{
+	if (stack->pointer <= 0)
+	{
+		return NULL;
+	}
+	return stack->values[stack->pointer - 1];
 }
 
 /* -- STACK IMPLEMENTATION -- */

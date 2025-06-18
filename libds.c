@@ -9,10 +9,18 @@
 stack_t *stack_new(void)
 {
 	stack_t *stack = (stack_t *)malloc(sizeof(stack_t));
-	assert(stack != NULL);
+	if (stack == NULL)
+	{
+		perror("libds: failed to alloc stack");
+		return NULL;
+	}
 	size_t capacity = 10;
 	void **values = malloc(capacity * sizeof(void*));
-	assert(values != NULL);
+	if (stack == NULL)
+	{
+		perror("libds: failed to alloc stack");
+		return NULL;
+	}
 	stack->values = values;
 	stack->pointer = 0;
 	stack->capacity = capacity;
@@ -33,7 +41,7 @@ void stack_push(stack_t *stack, void *item)
 		void **values_new = realloc(stack->values, capacity * sizeof(void *));
 		if (values_new == NULL)
 		{
-			perror("libds");
+			perror("libds: failed to realloc stack");
 			return;
 		}
 		else

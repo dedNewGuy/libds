@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <assert.h>
 
 #include "libds.h"
 
@@ -33,6 +34,13 @@ int main()
 	printf("Head: %d\n", *head);
 
 	stack_destroy(stack);
+
+	/* Testing Queue */
+	
+	queue_t *queue = queue_new();
+	assert(queue != NULL);
+	assert(queue->pointer == 0);
+	assert(queue->capacity == 10);
 
  	return 0;
 }

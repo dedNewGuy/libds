@@ -1,7 +1,6 @@
 #include "libds.h"
 
 #include <stdlib.h>
-#include <assert.h>
 #include <stdio.h>
 
 /* -- STACK IMPLEMENTATION -- */
@@ -73,4 +72,27 @@ void *stack_peek(stack_t *stack)
 		return NULL;
 	}
 	return stack->values[stack->pointer - 1];
+}
+
+/* QUEUE IMPLEMENTATION */
+queue_t *queue_new(void)
+{
+	queue_t *queue = (queue_t *)malloc(sizeof(queue_t));
+	if (queue == NULL)
+	{
+		perror("libds: failed to alloc queue");
+		return NULL;
+	}
+	size_t capacity = 10;
+	void **values = malloc(capacity * sizeof(void*));
+	if (values == NULL)
+	{
+		perror("libds: failed to alloc queue");
+		free(queue);
+		return NULL;
+	}
+	queue->values = values;
+	queue->pointer = 0;
+	queue->capacity = capacity;
+	return queue;
 }

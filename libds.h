@@ -27,4 +27,18 @@ void *stack_peek(stack_t *stack);
 void *stack_pop(stack_t *stack);
 void stack_destroy(stack_t *stack);
 
+struct __queue_t {
+	void **values;
+	size_t pointer;
+	size_t capacity;
+};
+
+typedef struct __queue_t queue_t;
+
+queue_t *queue_new(void);
+int enqueue(queue_t *queue, void *item);
+void *dequeue(queue_t *queue);
+void *queue_peek(queue_t *queue);
+void queue_destroy(queue_t *queue);
+
 #endif // LIBDS_H_

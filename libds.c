@@ -19,6 +19,7 @@ stack_t *stack_new(void)
 	if (values == NULL)
 	{
 		perror("libds: failed to alloc stack");
+		free(stack);
 		return NULL;
 	}
 	stack->values = values;

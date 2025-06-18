@@ -6,7 +6,7 @@ Everything is kept in just two files: `libds.h` and `libds.c`.
 ## Current Features
 
 - Stack (array-based, efficient and simple)
-- Queue ring buffer (overwrite value)
+- Ring Buffer
 
 ## Usage
 

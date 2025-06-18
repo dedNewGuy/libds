@@ -39,6 +39,7 @@ void stack_push(stack_t *stack, void *item)
 		else
 		{
 			stack->values = values_new;
+			stack->capacity = capacity;
 		}
 	}
 	stack->values[stack->pointer] = item;

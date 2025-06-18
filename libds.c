@@ -91,7 +91,7 @@ queue_t *queue_new(int capacity)
 		return NULL;
 	}
 	queue->values = values;
-	queue->read_pointer = capacity / 2;
+	queue->read_pointer = 0;
 	queue->write_pointer = queue->read_pointer;
 	queue->capacity = capacity;
 	return queue;

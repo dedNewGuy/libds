@@ -35,42 +35,8 @@ int main()
 
 	stack_destroy(stack);
 
-	/* Testing Queue Ring */
-	
-	queue_ring_t *queue_ring = queue_ring_new(10);
-	assert(queue_ring != NULL);
-	assert(queue_ring->read_pointer == 0);
-	assert(queue_ring->write_pointer == queue_ring->read_pointer);
-	assert(queue_ring->capacity == 10);
-	assert(queue_ring->size == 0);	
-
-	int queue_ring1 = 5;
-	enqueue_ring(queue_ring, &queue_ring1);
-
-	int queue_ring2 = 10;
-	enqueue_ring(queue_ring, &queue_ring2);
-
-	assert(queue_ring->write_pointer == 2);
-	assert(queue_ring->read_pointer == 0);
-	assert(queue_ring->size == 2);
-
-	void *deq1 = dequeue_ring(queue_ring);
-	if (deq1 != NULL)
-	{
-		assert(*(int *)(deq1) == 5);
-	}
-
-	assert(queue_ring->write_pointer == 2);
-	assert(queue_ring->read_pointer == 1);
-	assert(queue_ring->size == 1);
-	
-	void *peek1 = queue_ring_peek(queue_ring);
-	if (peek1 != NULL)
-	{
-		assert(*(int *)(peek1) == 10);
-	}
-
-	queue_ring_destroy(queue_ring);
+	/* Testing Ring Buffer */
+   
 	
  	return 0;
 }

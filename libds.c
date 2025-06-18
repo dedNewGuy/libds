@@ -74,11 +74,11 @@ void *stack_peek(stack_t *stack)
 	return stack->values[stack->pointer - 1];
 }
 
-/* QUEUE RING IMPLEMENTATION */
+/* RING BUFFER IMPLEMENTATION */
 
-queue_ring_t *queue_ring_new(int capacity)
+ring_buffer_t *ring_buffer_new(int capacity)
 {
-	queue_ring_t *queue = (queue_ring_t *)malloc(sizeof(queue_ring_t));
+	ring_buffer_t *queue = (ring_buffer_t *)malloc(sizeof(ring_buffer_t));
 	if (queue == NULL)
 	{
 		perror("libds: failed to alloc queue");
@@ -99,58 +99,58 @@ queue_ring_t *queue_ring_new(int capacity)
 	return queue;
 }
 
-int is_queue_ring_full(queue_ring_t *queue_ring)
+int is_ring_buffer_full(ring_buffer_t *ring_buffer)
 {
-	return queue_ring->size == queue_ring->capacity;
+	return ring_buffer->size == ring_buffer->capacity;
 }
 
-void enqueue_ring(queue_ring_t *queue_ring, void *item)
+void ring_buffer_put(ring_buffer_t *ring_buffer, void *item)
 {
-	queue_ring->values[queue_ring->write_pointer] = item;
+	ring_buffer->values[ring_buffer->write_pointer] = item;
 	
-	if (is_queue_ring_full(queue_ring)) {
-		queue_ring->read_pointer = (queue_ring->read_pointer + 1) % queue_ring->capacity;
+	if (is_ring_buffer_full(ring_buffer)) {
+		ring_buffer->read_pointer = (ring_buffer->read_pointer + 1) % ring_buffer->capacity;
 	} else {
-		queue_ring->size++;
+		ring_buffer->size++;
 	}
 	
-	queue_ring->write_pointer = (queue_ring->write_pointer + 1) % queue_ring->capacity;
+	ring_buffer->write_pointer = (ring_buffer->write_pointer + 1) % ring_buffer->capacity;
 }
 
-int is_queue_ring_empty(queue_ring_t *queue_ring)
+int is_ring_buffer_empty(ring_buffer_t *ring_buffer)
 {
-	return queue_ring->size == 0;
+	return ring_buffer->size == 0;
 }
 
-void *dequeue_ring(queue_ring_t *queue_ring)
+void *ring_buffer_pop(ring_buffer_t *ring_buffer)
 {
-	if (is_queue_ring_empty(queue_ring))
+	if (is_ring_buffer_empty(ring_buffer))
 	{
 		return NULL;
 	}
-	int idx = queue_ring->read_pointer;
-	queue_ring->read_pointer = (queue_ring->read_pointer + 1) % queue_ring->capacity;
-	queue_ring->size--;
-	return queue_ring->values[idx];
+	int idx = ring_buffer->read_pointer;
+	ring_buffer->read_pointer = (ring_buffer->read_pointer + 1) % ring_buffer->capacity;
+	ring_buffer->size--;
+	return ring_buffer->values[idx];
 }
 
-void *queue_ring_peek(queue_ring_t *queue_ring)
+void *ring_buffer_peek(ring_buffer_t *ring_buffer)
 {
-	if (is_queue_ring_empty(queue_ring))
+	if (is_ring_buffer_empty(ring_buffer))
 	{
 		return NULL;
 	}
-	int idx = queue_ring->read_pointer;
-	return queue_ring->values[idx];
+	int idx = ring_buffer->read_pointer;
+	return ring_buffer->values[idx];
 }
 
-size_t queue_ring_size(queue_ring_t *queue_ring)
+size_t ring_buffer_size(ring_buffer_t *ring_buffer)
 {
-	return queue_ring->size;
+	return ring_buffer->size;
 }
 
-void queue_ring_destroy(queue_ring_t *queue_ring)
+void destroy_ring_buffer(ring_buffer_t *ring_buffer)
 {
-	free(queue_ring->values);
-	free(queue_ring);
+	free(ring_buffer->values);
+	free(ring_buffer);
 }

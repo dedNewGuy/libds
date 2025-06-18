@@ -29,7 +29,7 @@ void stack_destroy(stack_t *stack);
 
 /* QUEUE (RING BUFFER) */
 
-struct __queue_ring_t {
+struct __ring_buffer_t {
 	void **values;
 	size_t write_pointer; // WRITE INDEX
 	size_t read_pointer; // READ INDEX
@@ -37,15 +37,15 @@ struct __queue_ring_t {
 	size_t capacity;
 };
 
-typedef struct __queue_ring_t queue_ring_t;
+typedef struct __ring_buffer_t ring_buffer_t;
 
-queue_ring_t *queue_ring_new(int capacity);
-void enqueue_ring(queue_ring_t *queue_ring, void *item);
-void *dequeue_ring(queue_ring_t *queue_ring);
-void *queue_ring_peek(queue_ring_t *queue_ring);
-size_t queue_ring_size(queue_ring_t *queue_ring);
-int is_queue_ring_full(queue_ring_t *queue_ring);
-int is_queue_ring_empty(queue_ring_t *queue_ring);
-void queue_ring_destroy(queue_ring_t *queue_ring);
+ring_buffer_t *ring_buffer_new(int capacity);
+void ring_buffer_put(ring_buffer_t *ring_buffer, void *item);
+void *ring_buffer_pop(ring_buffer_t *ring_buffer);
+void *ring_buffer_peek(ring_buffer_t *ring_buffer);
+size_t ring_buffer_size(ring_buffer_t *ring_buffer);
+int is_ring_buffer_full(ring_buffer_t *ring_buffer);
+int is_ring_buffer_empty(ring_buffer_t *ring_buffer);
+void destroy_ring_buffer(ring_buffer_t *ring_buffer);
 
 #endif // LIBDS_H_

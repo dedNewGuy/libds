@@ -37,7 +37,7 @@ void stack_push(stack_t *stack, void *item)
 {
 	if (stack->pointer >= stack->capacity)
 	{
-		size_t capacity = stack->capacity + 10;
+		size_t capacity = stack->capacity * 2;
 		void **values_new = realloc(stack->values, capacity * sizeof(void *));
 		if (values_new == NULL)
 		{

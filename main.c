@@ -21,9 +21,13 @@ int main()
 	
 	printf("Head: %d\n", *head);
 	
-	int popped = *(int *)(stack_pop(stack));
-	printf("Popped stack\n");
-	printf("Popped: %d\n", popped);
+	void *raw = stack_pop(stack);
+	if (raw == NULL)
+	{
+		int *popped = (int *)raw;
+		printf("Popped stack\n");
+		printf("Popped: %d\n", *popped);
+	}
 	
 	head = stack_peek(stack);
 	printf("Head: %d\n", *head);

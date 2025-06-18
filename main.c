@@ -66,6 +66,8 @@ int main()
 	{
 		assert(*(int *)(peek1) == 10);
 	}
+
+	queue_destroy(queue);
 	
  	return 0;
 }

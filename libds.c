@@ -131,3 +131,9 @@ void *queue_peek(queue_t *queue)
 	int idx = queue->read_pointer;
 	return queue->values[idx];
 }
+
+void queue_destroy(queue_t *queue)
+{
+	free(queue->values);
+	free(queue);
+}

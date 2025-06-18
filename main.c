@@ -5,11 +5,11 @@
 int main()
 {
 	
-	stack_int *my_stack = init_stack_int(5);
+	stack_t *stack = stack_new();
 
-	printf("%d\n", my_stack->stack[0]);
+	printf("%d\n", stack->pointer);
 
-	free_stack_int(my_stack);
+	stack_destroy(stack);
 	
  	return 0;
 }

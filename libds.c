@@ -1,5 +1,37 @@
 #include "libds.h"
+
 #include <stdlib.h>
+#include <assert.h>
+
+
+stack_t *stack_new(void)
+{
+	stack_t *stack = (stack_t *)malloc(sizeof(stack_t));
+	assert(stack != NULL);
+	size_t capacity = 10;
+	void **values = malloc(capacity * sizeof(void*));
+	assert(values != NULL);
+	stack->values = values;
+	stack->pointer = 0;
+	stack->capacity = capacity;
+	return stack;
+}
+
+void stack_destroy(stack_t *stack)
+{
+	free(stack->values);
+	free(stack);
+}
+
+void stack_push(stack_t *stack, void *item)
+{
+	
+}
+
+void *stack_pop(stack_t *stack)
+{
+	
+}
 
 /* -- STACK IMPLEMENTATION -- */
 

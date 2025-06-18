@@ -1,5 +1,5 @@
-#ifndef LIBDS_H
-#define LIBDS_H
+#ifndef LIBDS_H_
+#define LIBDS_H_
 
 #include <stddef.h>
 
@@ -30,4 +30,19 @@ void is_stack_int_empty(stack_int stack);
 size_t stack_int_size(stack_int stack);
 void free_stack_int(stack_int *stack);
 
-#endif // LIBDS_H
+/* Generic Stack Implementation */
+
+struct __stack_t {
+	int pointer;
+	void **values;
+	size_t capacity;
+};
+
+typedef struct __stack_t stack_t;
+
+stack_t *stack_new(void);
+void stack_push(stack_t *stack, void *item);
+void *stack_pop(stack_t *stack);
+void stack_destroy(stack_t *stack);
+
+#endif // LIBDS_H_

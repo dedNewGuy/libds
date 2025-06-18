@@ -16,7 +16,7 @@ stack_t *stack_new(void)
 	}
 	size_t capacity = 10;
 	void **values = malloc(capacity * sizeof(void*));
-	if (stack == NULL)
+	if (values == NULL)
 	{
 		perror("libds: failed to alloc stack");
 		return NULL;

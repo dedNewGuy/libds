@@ -11,18 +11,22 @@ int main()
 	int item1 = 5;
 	int item2 = 10;
 	
-	stack_push(stack, &item1);
-	stack_push(stack, &item2);
+	if (stack_push(stack, &item1) == 0)
+		printf("Pushing: %d\n", item1);
+	
+	if (stack_push(stack, &item2) == 0)
+		printf("Pushing: %d\n", item2);	
 	
 	int *head = stack_peek(stack);
 	
-	printf("%d\n", *head);
+	printf("Head: %d\n", *head);
 	
 	int popped = *(int *)(stack_pop(stack));
+	printf("Popped stack\n");
+	printf("Popped: %d\n", popped);
 	
 	head = stack_peek(stack);
-	printf("%d\n", *head);
-	printf("Popped: %d\n", popped);
+	printf("Head: %d\n", *head);
 
 	stack_destroy(stack);
 

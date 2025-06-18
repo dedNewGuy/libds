@@ -37,10 +37,31 @@ int main()
 
 	/* Testing Queue */
 	
-	queue_t *queue = queue_new();
+	queue_t *queue = queue_new(10);
 	assert(queue != NULL);
-	assert(queue->pointer == 0);
+	assert(queue->read_pointer == 5);
+	assert(queue->write_pointer == queue->read_pointer);
 	assert(queue->capacity == 10);
 
+	int queue1 = 5;
+	enqueue(queue, &queue1);
+
+	int queue2 = 10;
+	enqueue(queue, &queue2);
+
+	assert(queue->write_pointer == 7);
+	assert(queue->read_pointer == 5);
+
+	void *deq1 = dequeue(queue);
+	if (deq1 != NULL)
+	{
+		assert(*(int *)(deq1) == 5);
+	}
+
+	assert(queue->write_pointer == 7);
+	assert(queue->read_pointer == 6);
+
+	assert(*(int *)queue->values[queue->read_pointer] == 10);
+	
  	return 0;
 }

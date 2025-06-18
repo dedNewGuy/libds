@@ -75,7 +75,7 @@ void *stack_peek(stack_t *stack)
 }
 
 /* QUEUE IMPLEMENTATION */
-queue_t *queue_new(void)
+queue_t *queue_new(int capacity)
 {
 	queue_t *queue = (queue_t *)malloc(sizeof(queue_t));
 	if (queue == NULL)
@@ -83,7 +83,6 @@ queue_t *queue_new(void)
 		perror("libds: failed to alloc queue");
 		return NULL;
 	}
-	size_t capacity = 10;
 	void **values = malloc(capacity * sizeof(void*));
 	if (values == NULL)
 	{
@@ -92,7 +91,33 @@ queue_t *queue_new(void)
 		return NULL;
 	}
 	queue->values = values;
-	queue->pointer = 0;
+	queue->read_pointer = capacity / 2;
+	queue->write_pointer = queue->read_pointer;
 	queue->capacity = capacity;
 	return queue;
+}
+
+void enqueue(queue_t *queue, void *item)
+{
+	queue->values[queue->write_pointer] = item;
+	queue->write_pointer = (queue->write_pointer + 1) % queue->capacity;
+}
+
+int is_queue_empty(queue_t *queue)
+{
+	if (queue->read_pointer == queue->write_pointer)
+		return 1;
+
+	return 0;
+}
+
+void *dequeue(queue_t *queue)
+{
+	if (is_queue_empty(queue))
+	{
+		return NULL;
+	}
+	int idx = queue->read_pointer;
+	queue->read_pointer = (queue->read_pointer + 1) % queue->capacity;
+	return queue->values[idx];
 }

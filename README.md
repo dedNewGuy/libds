@@ -7,13 +7,6 @@ Everything is kept in just two files: `libds.h` and `libds.c`.
 
 - Stack (array-based, efficient and simple)
 
-## Planned Features
-
-- Linked List
-- Stack (refactor/improve)
-- Queue
-- Hash Map
-
 ## Usage
 
 Include `libds.h` and `libds.c` in your project.

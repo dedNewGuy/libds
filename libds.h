@@ -33,6 +33,7 @@ struct __queue_t {
 	void **values;
 	size_t write_pointer; // WRITE INDEX
 	size_t read_pointer; // READ INDEX
+	size_t size;
 	size_t capacity;
 };
 
@@ -42,6 +43,8 @@ queue_t *queue_new(int capacity);
 void enqueue(queue_t *queue, void *item);
 void *dequeue(queue_t *queue);
 void *queue_peek(queue_t *queue);
+size_t queue_size(queue_t *queue);
+int is_queue_full(queue_t *queue);
 int is_queue_empty(queue_t *queue);
 void queue_destroy(queue_t *queue);
 

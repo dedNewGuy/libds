@@ -74,7 +74,8 @@ void *stack_peek(stack_t *stack)
 	return stack->values[stack->pointer - 1];
 }
 
-/* QUEUE IMPLEMENTATION */
+/* QUEUE RING IMPLEMENTATION */
+
 queue_t *queue_new(int capacity)
 {
 	queue_t *queue = (queue_t *)malloc(sizeof(queue_t));
@@ -93,22 +94,32 @@ queue_t *queue_new(int capacity)
 	queue->values = values;
 	queue->read_pointer = 0;
 	queue->write_pointer = queue->read_pointer;
+	queue->size = 0;
 	queue->capacity = capacity;
 	return queue;
+}
+
+int is_queue_full(queue_t *queue)
+{
+	return queue->size == queue->capacity;
 }
 
 void enqueue(queue_t *queue, void *item)
 {
 	queue->values[queue->write_pointer] = item;
+	
+	if (is_queue_full(queue)) {
+		queue->read_pointer = (queue->read_pointer + 1) % queue->capacity;
+	} else {
+		queue->size++;
+	}
+	
 	queue->write_pointer = (queue->write_pointer + 1) % queue->capacity;
 }
 
 int is_queue_empty(queue_t *queue)
 {
-	if (queue->read_pointer == queue->write_pointer)
-		return 1;
-
-	return 0;
+	return queue->size == 0;
 }
 
 void *dequeue(queue_t *queue)
@@ -119,6 +130,7 @@ void *dequeue(queue_t *queue)
 	}
 	int idx = queue->read_pointer;
 	queue->read_pointer = (queue->read_pointer + 1) % queue->capacity;
+	queue->size--;
 	return queue->values[idx];
 }
 
@@ -130,6 +142,11 @@ void *queue_peek(queue_t *queue)
 	}
 	int idx = queue->read_pointer;
 	return queue->values[idx];
+}
+
+size_t queue_size(queue_t *queue)
+{
+	return queue->size;
 }
 
 void queue_destroy(queue_t *queue)

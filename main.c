@@ -39,9 +39,10 @@ int main()
 	
 	queue_t *queue = queue_new(10);
 	assert(queue != NULL);
-	assert(queue->read_pointer == 5);
+	assert(queue->read_pointer == 0);
 	assert(queue->write_pointer == queue->read_pointer);
 	assert(queue->capacity == 10);
+	assert(queue->size == 0);	
 
 	int queue1 = 5;
 	enqueue(queue, &queue1);
@@ -49,8 +50,9 @@ int main()
 	int queue2 = 10;
 	enqueue(queue, &queue2);
 
-	assert(queue->write_pointer == 7);
-	assert(queue->read_pointer == 5);
+	assert(queue->write_pointer == 2);
+	assert(queue->read_pointer == 0);
+	assert(queue->size == 2);
 
 	void *deq1 = dequeue(queue);
 	if (deq1 != NULL)
@@ -58,9 +60,10 @@ int main()
 		assert(*(int *)(deq1) == 5);
 	}
 
-	assert(queue->write_pointer == 7);
-	assert(queue->read_pointer == 6);
-
+	assert(queue->write_pointer == 2);
+	assert(queue->read_pointer == 1);
+	assert(queue->size == 1);
+	
 	void *peek1 = queue_peek(queue);
 	if (peek1 != NULL)
 	{

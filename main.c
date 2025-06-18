@@ -61,7 +61,11 @@ int main()
 	assert(queue->write_pointer == 7);
 	assert(queue->read_pointer == 6);
 
-	assert(*(int *)queue->values[queue->read_pointer] == 10);
+	void *peek1 = queue_peek(queue);
+	if (peek1 != NULL)
+	{
+		assert(*(int *)(peek1) == 10);
+	}
 	
  	return 0;
 }

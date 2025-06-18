@@ -121,3 +121,13 @@ void *dequeue(queue_t *queue)
 	queue->read_pointer = (queue->read_pointer + 1) % queue->capacity;
 	return queue->values[idx];
 }
+
+void *queue_peek(queue_t *queue)
+{
+	if (is_queue_empty(queue))
+	{
+		return NULL;
+	}
+	int idx = queue->read_pointer;
+	return queue->values[idx];
+}

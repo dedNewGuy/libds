@@ -7,7 +7,7 @@
 
 stack_t *stack_new(void)
 {
-	stack_t *stack = (stack_t *)malloc(sizeof(stack_t));
+	stack_t *stack = malloc(sizeof(stack_t));
 	if (stack == NULL)
 	{
 		perror("libds: failed to alloc stack");
@@ -78,25 +78,25 @@ void *stack_peek(stack_t *stack)
 
 ring_buffer_t *ring_buffer_new(int capacity)
 {
-	ring_buffer_t *queue = (ring_buffer_t *)malloc(sizeof(ring_buffer_t));
-	if (queue == NULL)
+	ring_buffer_t *ring_buffer = malloc(sizeof(ring_buffer_t));
+	if (ring_buffer == NULL)
 	{
-		perror("libds: failed to alloc queue");
+		perror("libds: failed to alloc ring_buffer");
 		return NULL;
 	}
 	void **values = malloc(capacity * sizeof(void*));
 	if (values == NULL)
 	{
-		perror("libds: failed to alloc queue");
-		free(queue);
+		perror("libds: failed to alloc ring_buffer");
+		free(ring_buffer);
 		return NULL;
 	}
-	queue->values = values;
-	queue->read_pointer = 0;
-	queue->write_pointer = queue->read_pointer;
-	queue->size = 0;
-	queue->capacity = capacity;
-	return queue;
+	ring_buffer->values = values;
+	ring_buffer->read_pointer = 0;
+	ring_buffer->write_pointer = ring_buffer->read_pointer;
+	ring_buffer->size = 0;
+	ring_buffer->capacity = capacity;
+	return ring_buffer;
 }
 
 int is_ring_buffer_full(ring_buffer_t *ring_buffer)
@@ -140,8 +140,7 @@ void *ring_buffer_peek(ring_buffer_t *ring_buffer)
 	{
 		return NULL;
 	}
-	int idx = ring_buffer->read_pointer;
-	return ring_buffer->values[idx];
+	return ring_buffer->values[ring_buffer->read_pointer];
 }
 
 size_t ring_buffer_size(ring_buffer_t *ring_buffer)

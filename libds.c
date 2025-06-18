@@ -33,7 +33,6 @@ void stack_push(stack_t *stack, void *item)
 		void **values_new = realloc(stack->values, capacity * sizeof(void *));
 		if (values_new == NULL)
 		{
-			free(stack->values);
 			perror("libds");
 			return;
 		}

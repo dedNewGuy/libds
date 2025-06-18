@@ -1,8 +1,21 @@
-# Libds | Elementary Data Structure Library
+# libds
 
-Library for elementary data structure
+libds is a small and simple C library for basic data structures.
+Everything is kept in just two files: `libds.h` and `libds.c`.
 
-## Feature
+## Current Features
+
+- Stack (array-based, efficient and simple)
+
+## Planned Features
+
 - Linked List
-- Stack
+- Stack (refactor/improve)
 - Queue
+- Hash Map
+
+## Usage
+
+Include `libds.h` and `libds.c` in your project.
+You can refer to `main.c` for example usage.
+

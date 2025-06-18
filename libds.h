@@ -14,8 +14,8 @@ typedef struct node_t {
 /* -- STACK -- */
 
 struct __stack_t {
-	int pointer;
 	void **values;
+	size_t pointer;
 	size_t capacity;
 };
 
